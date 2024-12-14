@@ -1134,8 +1134,9 @@ short write_tng(struct LEVEL *lvl,char *fname)
 {
     message_log(" write_tng: starting");
     /*Preparing array bounds */
-    const int arr_entries_x=lvl->tlsize.x*MAP_SUBNUM_X;
-    const int arr_entries_y=lvl->tlsize.y*MAP_SUBNUM_Y;
+    //restricting to 255 as tng format only uses 1 byte, excess won't be added to file
+    const int arr_entries_x= max(lvl->tlsize.x*MAP_SUBNUM_X,255);
+    const int arr_entries_y= max(lvl->tlsize.y*MAP_SUBNUM_Y,255);
 
     FILE *fp;
     int cx, cy, k;
